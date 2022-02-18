@@ -1,0 +1,13 @@
+app:
+  appId: "17623870"
+http:
+  port: "8081"
+  timeout: "300000"
+fakestoreproxyapi:
+  host: "fake-store-proxy-api.sg-s1.cloudhub.io"
+  port: "80"
+  basepath: "/"
+  protocol: "HTTP"
+layer: "prc"
+version: "v1"
+context: "fakestore"

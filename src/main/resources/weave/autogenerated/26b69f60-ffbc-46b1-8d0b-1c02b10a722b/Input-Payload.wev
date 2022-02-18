@@ -1,0 +1,18 @@
+%dw 2.0
+
+type auto_26b69f60_ffbc_46b1_8d0b_1c02b10a722b_Input_Payload = {
+  image: String, 
+  price: Number, 
+  rating?: {
+    rate?: Number, 
+    count?: Number, 
+    _?: Any
+  }, 
+  description: String, 
+  id?: Number, 
+  title: String, 
+  category: String, 
+  _?: Any
+} {"description": "Product Data format",
+"label": "Product Data Types"}
+
