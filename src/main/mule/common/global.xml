@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<http:listener-config name="fakestore-product-papi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="${http.port}" readTimeout="${http.timeout}"/>
     </http:listener-config>
-    <apikit:config name="fakestore-product-papi-config" api="resource::706f4d0a-e4a3-40fb-8365-ae5ac1f0a8d7:fakestore-product-prc-api:1.0.3:raml:zip:fakestore-product-prc-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="fakestore-product-papi-config" api="resource::706f4d0a-e4a3-40fb-8365-ae5ac1f0a8d7:fakestore-product-prc-api:1.0.4:raml:zip:fakestore-product-prc-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
 	<http:request-config name="fakestore-proxy-config" doc:name="HTTP Request configuration" doc:id="3a231211-e513-48a1-9a61-75ff9ac54e65">
 		<http:request-connection host="${fakestoreproxyapi.host}" port="${fakestoreproxyapi.port}" connectionIdleTimeout="${http.timeout}"/>
 	</http:request-config>

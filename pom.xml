@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>706f4d0a-e4a3-40fb-8365-ae5ac1f0a8d7</groupId>
 			<artifactId>fakestore-product-prc-api</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.4</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>

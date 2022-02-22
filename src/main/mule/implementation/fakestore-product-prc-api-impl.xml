@@ -71,7 +71,13 @@ payload]]></ee:set-payload>
 	</flow>
 	<flow name="getTop10Products-implFlow" doc:id="996be68b-4dfe-4202-827b-72713c4fd780" >
 		<logger level="INFO" doc:name="Start get top 10 products" doc:id="ffc204e6-e3a8-414e-b93e-872c72c3fc22" message="Start get top 10 products"/>
-		<http:request method="GET" doc:name="Fakestore Product API Proxy" doc:id="9c9bc601-bd6c-4af6-9697-23aa86ba433b" config-ref="fakestore-proxy-config" path="/products" responseTimeout="${http.timeout}"/>
+		<http:request method="GET" doc:name="Fakestore Product API Proxy" doc:id="9c9bc601-bd6c-4af6-9697-23aa86ba433b" config-ref="fakestore-proxy-config" path="/products" responseTimeout="${http.timeout}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"Content-Type" : "application/json"
+}]]]></http:headers>
+		</http:request>
 		<ee:transform doc:name="Top 10 products by rating" doc:id="33363476-4e6e-4a83-acbb-048df9a2a630" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
