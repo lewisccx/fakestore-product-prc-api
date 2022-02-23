@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="fakestore-product-prc-api-impl-suite.xml" />
+	<munit:test name="getAllProducts-implFlow-success" doc:id="f4e06586-8706-416c-8522-5240a69f20a3" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="0467e78b-33e0-4b48-8925-61605dd2b325" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="77210df8-0aed-42b7-bad7-6ef7443f772c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getAllProductsimplFlowsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getAllProductsimplFlowsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getAllProductsimplFlowsuccess\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="2fa012ed-1702-40a4-97f6-ba1c20d65913" >
+				<munit:payload value="#[readUrl('classpath://getAllProductsimplFlowsuccess\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getAllProductsimplFlowsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getAllProductsimplFlowsuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getAllProducts-implFlow" doc:id="75890039-7b5b-43f8-b53d-e770b22744dd" name="getAllProducts-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="2ccfde2e-7834-47f5-9d18-f875268e256c" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getAllProductsimplFlowsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getProductByID-implFlow-success" doc:id="21b8f83b-f61a-4992-a183-b33cb20f15a1" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="10be13c3-25c2-4b09-9812-103cda492b7b" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9bb769c7-1bf4-42f7-a8d2-a0afdf1aa3cf" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getProductByIDimplFlowsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getProductByIDimplFlowsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getProductByIDimplFlowsuccess\mock_variable_.dwl')]" />
+						<munit-tools:variable key="productId" value="#[output application/java --- readUrl('classpath://getProductByIDimplFlowsuccess\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="d3370b7c-a5e0-455f-8109-8b999e8cdfcc" >
+				<munit:payload value="#[readUrl('classpath://getProductByIDimplFlowsuccess\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getProductByIDimplFlowsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getProductByIDimplFlowsuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getProductByID-implFlow" doc:id="bc826777-8d84-4c2b-8de6-13e3f0dd270c" name="getProductByID-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="61d0f1ce-1319-45c2-97e6-22c70e527d17" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getProductByIDimplFlowsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Retrieved product from Fakestore API" doc:id="2640a0be-667c-4f1b-b276-661c36dc4812" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="26c14a08-11f8-4be3-b881-bed324eb7280" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getProductByID-implFlow-productNotFound" doc:id="a941e5b1-8b3b-4c51-a278-2c9e4c32d56f" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="9e6749a9-1985-4ff4-b10b-10d0d6e95003" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9bb769c7-1bf4-42f7-a8d2-a0afdf1aa3cf" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getProductByIDimplFlowproductNotFound\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getProductByIDimplFlowproductNotFound\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getProductByIDimplFlowproductNotFound\mock_variable_.dwl')]" />
+						<munit-tools:variable key="productId" value="#[output application/java --- readUrl('classpath://getProductByIDimplFlowproductNotFound\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="f847e49e-ea2c-4be5-9006-e60464bd2513" >
+				<munit:payload value="#[readUrl('classpath://getProductByIDimplFlowproductNotFound\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getProductByIDimplFlowproductNotFound\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getProductByIDimplFlowproductNotFound\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getProductByID-implFlow" doc:id="d95b486c-380b-4e70-b30d-85a6bf65e6e5" name="getProductByID-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="c21ad8dd-9adc-4590-b2d8-378b7531c02d" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getProductByIDimplFlowproductNotFound::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getTop10Products-implFlow-success" doc:id="87785e3c-446a-4282-9368-1636f111e419" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="0b76c5c1-f7ba-4f6f-9566-f9af22ba2a53" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9c9bc601-bd6c-4af6-9697-23aa86ba433b" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getTop10ProductsimplFlowsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getTop10ProductsimplFlowsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getTop10ProductsimplFlowsuccess\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="21fdef16-feb4-4d64-b09f-3dcc246c8202" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://getTop10ProductsimplFlowsuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://getTop10ProductsimplFlowsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getTop10ProductsimplFlowsuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getTop10Products-implFlow" doc:id="afb95289-f779-4fa3-b6fd-1f422a0058e6" name="getTop10Products-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="d35ddcfb-bf38-47a2-aaaf-8e09b2260815" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getTop10ProductsimplFlowsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="createNewProduct-implFlow-success" doc:id="b0471417-59a3-4b33-8b41-c2c4be159c87" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="e90dc0eb-8e1a-4f74-aaab-3ea77d8a0eb3" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5049d055-b155-448f-bdad-59b80822195c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://createNewProductimplFlowsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://createNewProductimplFlowsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createNewProductimplFlowsuccess\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="ca78925d-18d6-465d-ae0b-19e877787d01" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://createNewProductimplFlowsuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://createNewProductimplFlowsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://createNewProductimplFlowsuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to createNewProduct-implFlow" doc:id="2973feb2-123e-4fce-8976-f966486299d6" name="createNewProduct-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="a56bc9b2-eed7-4a6c-b099-f32b7d723892" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import createNewProductimplFlowsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="updateProduct-implFlow-success" doc:id="f2b2157e-930e-4fb2-b908-4d71104689f2" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="8a97dc7a-3358-4ca9-aef1-427a2c9558ec" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="759a1a69-57fd-4f1e-b0d1-f930d15de58e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://updateProductimplFlowsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://updateProductimplFlowsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://updateProductimplFlowsuccess\mock_variable_.dwl')]" />
+						<munit-tools:variable key="productId" value="#[output application/java --- readUrl('classpath://updateProductimplFlowsuccess\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="387184ea-ca61-43d5-abb8-4d522671cd3f" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://updateProductimplFlowsuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://updateProductimplFlowsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://updateProductimplFlowsuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to updateProduct-implFlow" doc:id="3c1faf0e-1737-4813-9809-7c0eb5aa5eec" name="updateProduct-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="0e297cee-d202-4a55-99cc-7545ba3c3e43" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import updateProductimplFlowsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
