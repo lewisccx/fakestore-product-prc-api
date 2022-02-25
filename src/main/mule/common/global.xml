@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<configuration-properties doc:name="Configuration properties" doc:id="538e9a00-2d2e-4002-8891-91c6204d43c6" file="config/${mule.env}.yaml" />
 	<configuration doc:name="Configuration" doc:id="27d82c5e-8fad-45f0-b03a-59abdfb7fd1f" defaultErrorHandler-ref="globalError_Handler" />
 	<api-gateway:autodiscovery apiId="${app.appId}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="fc00dd52-80d7-44c3-8f5b-73d60c5ae5d5" flowRef="fakestore-product-papi-main" />
-	<global-property doc:name="Global Property" doc:id="bc3ded09-1a40-4580-847b-ddcb21c840f9" name="mule.env" value="dev" />
+	<global-property doc:name="Global Property" doc:id="5ae4645c-72e3-4c11-ac3e-2c91c022a1c5" name="mule.env" value="dev" />
 	<error-handler name="globalError_Handler" doc:id="5e84a634-922c-4e00-ada6-a01ba1b679d2" >
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="0ec63a99-eb81-4580-8c85-25ec0e74ddf0" type="HTTP:TIMEOUT">
 			<ee:transform doc:name="HTTP.TIMEOUT" doc:id="fdeeca8b-cd39-4f3d-8291-66ae5e66b988" >
@@ -37,23 +37,6 @@ output application/json
 		"status": error.errorType.identifier,
 		"invocationTimestamp": now()
 	}
-}]]></ee:set-payload>
-				</ee:message>
-			</ee:transform>
-		</on-error-propagate>
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c2f3121b-e70c-401e-9c5d-3bad99f5da56" type="ANY">
-			<ee:transform doc:name="ANY" doc:id="52da8b77-9935-4cbf-aa0c-c522774b1183" >
-				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-	"name": p('app.name'),
-	"status": error.errorType.identifier,
-	"title": message.attributes.requestUri,
-	"transactionID": correlationId,
-	"description": error.description,
-	"invocationTimestamp": now()
 }]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>

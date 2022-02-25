@@ -6,7 +6,8 @@
 	xsi:schemaLocation="
 		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
-		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+		">
 	<munit:config name="fakestore-product-prc-api-impl-suite.xml" />
 	<munit:test name="getAllProducts-implFlow-success" doc:id="f4e06586-8706-416c-8522-5240a69f20a3" >
 		<munit:behavior >
@@ -42,6 +43,7 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 			</munit-tools:assert>
 		</munit:validation>
 	</munit:test>
+	
 	<munit:test name="getProductByID-implFlow-success" doc:id="21b8f83b-f61a-4992-a183-b33cb20f15a1" >
 		<munit:behavior >
 			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="10be13c3-25c2-4b09-9812-103cda492b7b" processor="http:request">
@@ -220,6 +222,132 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 			</munit-tools:assert>
 		</munit:validation>
 	</munit:test>
-
+	<munit:test name="fakestore-product-prc-api-impl-triggerBadRequestSuccess" doc:id="94b63948-5488-49f3-904d-846e961ed9d6" expectedErrorType="APIKIT:BAD_REQUEST">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when APIKIT:BAD_REQUEST" doc:id="f13f6188-fd3f-4d28-b0f6-73108d7bb518" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-product-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference to fakestore-product-papi-main" doc:id="d3e9d763-556d-4c05-815a-f43837929d2d" name="fakestore-product-papi-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="b97a057d-b955-44ed-ab3f-97c7ae3bc285" actual="#[vars.httpStatus]" expected="#[400]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="fakestore-product-prc-api-impl-triggerNotFoundSuccess" doc:id="7351a877-5381-4e88-9670-4753ef745018" expectedErrorType="APIKIT:NOT_FOUND">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:BAD_REQUEST" doc:id="11982052-70ae-4bcc-b4dd-e8f09189d4d9" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-product-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-product-papi-main" doc:id="1de5dcf4-fb49-41c6-809c-2cbeab0e63e4" name="fakestore-product-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="6c8abc61-67e8-4cf1-9b2b-c1a2dc75c3e6" actual="#[vars.httpStatus]" expected="#[404]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-product-prc-api-impl-triggerMethodNotAllowSuccess" doc:id="a9e0bf6b-87f6-4e54-866d-a6f05f58838e" expectedErrorType="APIKIT:METHOD_NOT_ALLOWED">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:METHOD_NOT_ALLOWED" doc:id="42729613-f9cb-43a5-8461-a4400c2691fc" processor="apikit:router">
+					<munit-tools:with-attributes>
+						<munit-tools:with-attribute whereValue="fakestore-product-papi-config" attributeName="config-ref" />
+					</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-product-papi-main" doc:id="0fe4417a-7c8a-45cb-a6f5-1f5cdde67422" name="fakestore-product-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="006b2ad2-0c57-4efc-9961-7bc16706053b" actual="#[vars.httpStatus]" expected="#[405]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-product-prc-api-impl-triggerNotAcceptableSuccess" doc:id="8b397808-a268-42b2-bda4-be888cd5520f" expectedErrorType="APIKIT:NOT_ACCEPTABLE">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:NOT_ACCEPTABLE" doc:id="682ee8dc-27d3-4288-bf0b-1113819ef28f" processor="apikit:router">
+					<munit-tools:with-attributes>
+						<munit-tools:with-attribute whereValue="fakestore-product-papi-config" attributeName="config-ref" />
+					</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-product-papi-main" doc:id="ed67f839-8c3f-4934-a295-6747e019ec4a" name="fakestore-product-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="ca2f10e3-585b-44de-810c-219bbc1fccef" actual="#[vars.httpStatus]" expected="#[406]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-product-prc-api-impl-triggerUnsupportedMediaTypeSuccess" doc:id="1fbdefdc-1684-48a5-b2f5-eaae36a667d7" expectedErrorType="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:NOT_ACCEPTABLE" doc:id="f47aec47-378e-4ad4-82f5-6fc2ad577538" processor="apikit:router">
+					<munit-tools:with-attributes>
+						<munit-tools:with-attribute whereValue="fakestore-product-papi-config" attributeName="config-ref" />
+					</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-product-papi-main" doc:id="e14d7a86-8209-48e3-876b-b72ec2d4de9e" name="fakestore-product-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="8ed9d23d-0897-4a36-b61c-300df411a3f5" actual="#[vars.httpStatus]" expected="#[415]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-product-prc-api-impl-triggerNotImplementedSuccess" doc:id="a5439716-d91f-464f-a1a0-257e6bf515f7" expectedErrorType="APIKIT:NOT_IMPLEMENTED">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:NOT_IMPLEMENTED" doc:id="ea13aa04-e560-4c38-8f47-238129cff6bf" processor="apikit:router">
+					<munit-tools:with-attributes>
+						<munit-tools:with-attribute whereValue="fakestore-product-papi-config" attributeName="config-ref" />
+					</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-product-papi-main" doc:id="efd2bea1-d601-4251-a682-010dc5b9aa36" name="fakestore-product-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="90760bdc-2efc-42cd-a8b9-fe8879481a3b" actual="#[vars.httpStatus]" expected="#[501]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-product-prc-api-impl-triggerHttpTimeoutSuccess" doc:id="1f923c38-3e0e-4df1-9496-5f62df8114f9" expectedErrorType="HTTP:TIMEOUT">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when HTTP:TIMEOUT" doc:id="f24820e0-6c08-4c5e-889a-cd513338b9b5" processor="http:request">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="77210df8-0aed-42b7-bad7-6ef7443f772c" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="fakestore-proxy-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:TIMEOUT" />
+				</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to getAllProducts" doc:id="5ce1306d-b991-4cb8-89c2-660dcd69e7d7" name="getAllProducts-implFlow" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="a5eae95f-6e0c-4e31-88ee-fb616dee0fe3" actual="#[vars.httpStatus]" expected="#[500]" />
+			</munit:validation>
+		</munit:test>
 
 </mule>

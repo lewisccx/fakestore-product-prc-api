@@ -1,0 +1,15 @@
+%dw 2.0
+
+type auto_ad744204_dc4f_4b82_a26f_6de26f28b980_Output_Payload = {|
+  header: {|
+    apiName: String, 
+    apiVersion: String, 
+    correlationId: String
+  |}, 
+  error: {|
+    description: String | Null, 
+    status: String | Null, 
+    invocationTimestamp: DateTime
+  |}
+|}
+
