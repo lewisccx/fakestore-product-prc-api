@@ -158,7 +158,7 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-	<flow name="fakestore-product-papi-console">
+	<flow name="fakestore-product-papi-console" doc:id="a5d8f1d7-a901-41a9-8963-c664af5b3a1f">
         <http:listener path="/console/*" config-ref="fakestore-product-papi-httpListenerConfig">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
