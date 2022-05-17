@@ -9,7 +9,7 @@
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
 		">
 	<munit:config name="fakestore-product-prc-api-impl-suite.xml" />
-	<munit:test name="getAllProducts-implFlow-success" doc:id="f4e06586-8706-416c-8522-5240a69f20a3" >
+	<munit:test name="getAllProducts-implFlow-success" doc:id="f4e06586-8706-416c-8522-5240a69f20a3" tags="http">
 		<munit:behavior >
 			<munit-tools:mock-when doc:name="Mock Fakestore Product API Proxy" doc:id="0467e78b-33e0-4b48-8925-61605dd2b325" processor="http:request">
 				<munit-tools:with-attributes >
